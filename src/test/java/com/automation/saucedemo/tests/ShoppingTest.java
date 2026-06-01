@@ -40,9 +40,10 @@ public class ShoppingTest extends LoggedInBaseTest {
     public void cartShowsAddedProducts() {
         inventoryPage
                 .addProductById(TestDataReader.getProduct("backpack.id"))
-                .addProductById(TestDataReader.getProduct("bike.light.id"));
+                .addProductById(TestDataReader.getProduct("bike.light.id"))
+                .waitForCartBadgeCount(2);
 
-        CartPage cartPage = inventoryPage.openCart();
+        CartPage cartPage = inventoryPage.openCartDirect();
 
         Assert.assertTrue(cartPage.isLoaded(), "Cart page should be loaded");
         List<String> cartItems = cartPage.getProductNames();

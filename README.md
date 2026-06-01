@@ -60,6 +60,8 @@ flowchart TB
 
 ## Run tests locally
 
+**Windows CMD:** you must switch to the `D:` drive. Use `cd /d d:\Automation\Framework` or double-click `run-tests.bat` in this folder.
+
 ```bash
 # Default: Chrome, headed mode
 mvn clean test

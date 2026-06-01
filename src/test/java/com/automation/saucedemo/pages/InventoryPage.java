@@ -1,5 +1,6 @@
 package com.automation.saucedemo.pages;
 
+import com.automation.saucedemo.config.AppUrls;
 import com.automation.saucedemo.config.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -29,8 +30,13 @@ public class InventoryPage extends BasePage {
 
     public InventoryPage addProductById(String productId) {
         int countBefore = getCartBadgeCount();
-        click(By.cssSelector("[data-test='add-to-cart-" + productId + "']"));
-        wait.until(driver -> getCartBadgeCount() == countBefore + 1);
+        By addToCart = By.cssSelector("[data-test='add-to-cart-" + productId + "']");
+        By removeFromCart = By.cssSelector("[data-test='remove-" + productId + "']");
+
+        if (driver.findElements(removeFromCart).isEmpty()) {
+            jsClick(addToCart);
+            wait.until(webDriver -> getCartBadgeCount() == countBefore + 1);
+        }
         return this;
     }
 
@@ -48,8 +54,13 @@ public class InventoryPage extends BasePage {
     }
 
     public CartPage openCart() {
-        click(SHOPPING_CART_LINK);
+        jsClick(SHOPPING_CART_LINK);
         waitForCartPage();
+        return new CartPage().waitForPageLoad();
+    }
+
+    public CartPage openCartDirect() {
+        driver.get(AppUrls.cart());
         return new CartPage().waitForPageLoad();
     }
 
@@ -82,7 +93,6 @@ public class InventoryPage extends BasePage {
     }
 
     private static String cartUrl() {
-        String baseUrl = ConfigReader.get("base.url");
-        return baseUrl.endsWith("/") ? baseUrl + "cart.html" : baseUrl + "/cart.html";
+        return AppUrls.cart();
     }
 }
