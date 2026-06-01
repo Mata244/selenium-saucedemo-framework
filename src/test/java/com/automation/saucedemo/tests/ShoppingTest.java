@@ -17,7 +17,9 @@ public class ShoppingTest extends LoggedInBaseTest {
     @Test(description = "Adding one product updates cart badge to 1")
     @Description("Cart badge shows correct count after adding a single item")
     public void addOneProductUpdatesCartBadge() {
-        inventoryPage.addProductById(TestDataReader.getProduct("backpack.id"));
+        inventoryPage
+                .addProductById(TestDataReader.getProduct("backpack.id"))
+                .waitForCartBadgeCount(1);
 
         Assert.assertEquals(inventoryPage.getCartBadgeCount(), 1, "Cart badge should show 1 item");
     }
@@ -27,7 +29,8 @@ public class ShoppingTest extends LoggedInBaseTest {
     public void addTwoProductsUpdatesCartBadge() {
         inventoryPage
                 .addProductById(TestDataReader.getProduct("backpack.id"))
-                .addProductById(TestDataReader.getProduct("bike.light.id"));
+                .addProductById(TestDataReader.getProduct("bike.light.id"))
+                .waitForCartBadgeCount(2);
 
         Assert.assertEquals(inventoryPage.getCartBadgeCount(), 2, "Cart badge should show 2 items");
     }

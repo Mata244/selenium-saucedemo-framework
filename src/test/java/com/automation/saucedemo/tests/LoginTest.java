@@ -45,7 +45,7 @@ public class LoginTest extends BaseTest {
     @Test(description = "Logout returns to login page")
     @Description("User can log out from inventory and return to login screen")
     public void logoutReturnsToLoginPage() {
-        new LoginPage()
+        LoginPage loginPage = new LoginPage()
                 .open()
                 .login(
                         TestDataReader.getUser("standard.username"),
@@ -53,7 +53,6 @@ public class LoginTest extends BaseTest {
                 )
                 .logout();
 
-        LoginPage loginPage = new LoginPage();
         Assert.assertTrue(loginPage.isLoaded(), "Login page should be displayed after logout");
     }
 }

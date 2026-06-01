@@ -2,6 +2,7 @@ package com.automation.saucedemo.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class CartPage extends BasePage {
     }
 
     public CartPage waitForPageLoad() {
+        wait.until(ExpectedConditions.urlContains("cart.html"));
+        waitForVisible(CART_LIST);
         waitForVisible(CHECKOUT_BUTTON);
         return this;
     }

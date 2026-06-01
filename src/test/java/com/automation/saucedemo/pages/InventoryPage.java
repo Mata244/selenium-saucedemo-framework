@@ -1,5 +1,6 @@
 package com.automation.saucedemo.pages;
 
+import com.automation.saucedemo.config.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,7 +26,10 @@ public class InventoryPage extends BasePage {
     }
 
     public InventoryPage addProductById(String productId) {
-        click(By.cssSelector("[data-test='add-to-cart-" + productId + "']"));
+        By addToCart = By.cssSelector("[data-test='add-to-cart-" + productId + "']");
+        By removeFromCart = By.cssSelector("[data-test='remove-" + productId + "']");
+        click(addToCart);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeFromCart));
         return this;
     }
 
@@ -37,6 +41,11 @@ public class InventoryPage extends BasePage {
         return Integer.parseInt(badges.getFirst().getText());
     }
 
+    public InventoryPage waitForCartBadgeCount(int expectedCount) {
+        wait.until(driver -> getCartBadgeCount() == expectedCount);
+        return this;
+    }
+
     public CartPage openCart() {
         click(SHOPPING_CART_LINK);
         return new CartPage().waitForPageLoad();
@@ -45,7 +54,8 @@ public class InventoryPage extends BasePage {
     public LoginPage logout() {
         click(MENU_BUTTON);
         wait.until(ExpectedConditions.elementToBeClickable(LOGOUT_LINK)).click();
-        return new LoginPage();
+        wait.until(ExpectedConditions.urlToBe(ConfigReader.get("base.url")));
+        return new LoginPage().waitForPageLoad();
     }
 
     public List<String> getProductNames() {

@@ -37,4 +37,10 @@ public class LoginPage extends BasePage {
     public boolean isLoaded() {
         return isDisplayed(USERNAME) && isDisplayed(LOGIN_BUTTON);
     }
+
+    public LoginPage waitForPageLoad() {
+        waitForVisible(USERNAME);
+        waitForVisible(LOGIN_BUTTON);
+        return this;
+    }
 }
