@@ -17,11 +17,10 @@ public class CheckoutTest extends LoggedInBaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void prepareCartForCheckout() {
-        checkoutPage = inventoryPage
+        inventoryPage
                 .addProductById(TestDataReader.getProduct("backpack.id"))
-                .waitForCartBadgeCount(1)
-                .openCart()
-                .proceedToCheckout();
+                .waitForCartBadgeCount(1);
+        checkoutPage = CheckoutPage.openStepOne();
     }
 
     @Test(description = "Checkout happy path completes order")

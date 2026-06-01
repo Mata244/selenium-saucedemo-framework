@@ -3,6 +3,7 @@
 <suite name="SauceDemo Smoke Suite" parallel="none" verbose="1">
     <listeners>
         <listener class-name="com.automation.saucedemo.listeners.TestListener"/>
+        <listener class-name="com.automation.saucedemo.listeners.AnnotationTransformer"/>
     </listeners>
     <test name="Smoke">
         <classes>

@@ -61,7 +61,7 @@ public abstract class BasePage {
         }
     }
 
-    private void scrollIntoView(WebElement element) {
+    protected void scrollIntoView(WebElement element) {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", element);
     }

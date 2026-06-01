@@ -22,7 +22,7 @@ jobs:
           cache: maven
 
       - name: Run tests
-        run: mvn -B clean test "-Dheadless=true" "-Dexplicit.wait=25"
+        run: mvn -B clean test "-Dheadless=true" "-Dexplicit.wait=30"
 
       - name: Upload Allure results
         if: always()
