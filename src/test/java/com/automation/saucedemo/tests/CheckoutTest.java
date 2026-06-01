@@ -13,10 +13,13 @@ import org.testng.annotations.Test;
 @Feature("Checkout")
 public class CheckoutTest extends LoggedInBaseTest {
 
+    private CheckoutPage checkoutPage;
+
     @BeforeMethod(alwaysRun = true)
     public void prepareCartForCheckout() {
-        inventoryPage
+        checkoutPage = inventoryPage
                 .addProductById(TestDataReader.getProduct("backpack.id"))
+                .waitForCartBadgeCount(1)
                 .openCart()
                 .proceedToCheckout();
     }
@@ -24,7 +27,7 @@ public class CheckoutTest extends LoggedInBaseTest {
     @Test(description = "Checkout happy path completes order")
     @Description("User can fill shipping info and complete purchase with confirmation")
     public void checkoutHappyPathCompletesOrder() {
-        CheckoutPage checkoutPage = new CheckoutPage()
+        checkoutPage
                 .fillShippingInfo("John", "Doe", "12345")
                 .finishOrder();
 

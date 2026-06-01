@@ -3,6 +3,8 @@ package com.automation.saucedemo.pages;
 import com.automation.saucedemo.config.ConfigReader;
 import com.automation.saucedemo.driver.DriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,11 +32,19 @@ public abstract class BasePage {
     }
 
     protected void click(By locator) {
-        waitForVisible(locator).click();
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        scrollIntoView(element);
+        try {
+            element.click();
+        } catch (ElementClickInterceptedException ex) {
+            jsClick(element);
+        }
     }
 
     protected void type(By locator, String text) {
-        WebElement element = waitForVisible(locator);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        scrollIntoView(element);
+        element.click();
         element.clear();
         element.sendKeys(text);
     }
@@ -49,5 +59,18 @@ public abstract class BasePage {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private void scrollIntoView(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", element);
+    }
+
+    protected void jsClick(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+
+    protected void jsClick(By locator) {
+        jsClick(wait.until(ExpectedConditions.elementToBeClickable(locator)));
     }
 }

@@ -31,7 +31,8 @@ public class CartPage extends BasePage {
     }
 
     public CheckoutPage proceedToCheckout() {
-        click(CHECKOUT_BUTTON);
+        jsClick(CHECKOUT_BUTTON);
+        wait.until(ExpectedConditions.urlContains("checkout-step-one"));
         return new CheckoutPage();
     }
 
