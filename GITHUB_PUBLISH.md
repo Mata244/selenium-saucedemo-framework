@@ -1,18 +1,16 @@
-# Publish to GitHub (Mata244)
+# Finish publishing (Mata244)
 
-Your README is configured for: **https://github.com/Mata244/selenium-saucedemo-framework**
+Local Git is ready: commit created, remote `origin` points to your repo.
 
-## Step 1 — Create the empty repo (one time)
+## Step 1 — Create the empty repo on GitHub
 
-Open this link while logged in as **Mata244**:
+1. Sign in at https://github.com as **Mata244**
+2. Open: **https://github.com/new?name=selenium-saucedemo-framework&description=Selenium+4+%2B+Java+%2B+TestNG+framework+for+SauceDemo**
+3. Choose **Public**
+4. Leave **unchecked**: Add README, .gitignore, license
+5. Click **Create repository**
 
-**https://github.com/new?name=selenium-saucedemo-framework&description=Selenium+4+%2B+Java+%2B+TestNG+framework+for+SauceDemo**
-
-- Set visibility to **Public**
-- Do **not** add README, .gitignore, or license
-- Click **Create repository**
-
-## Step 2 — Push from your PC
+## Step 2 — Push your code
 
 In PowerShell:
 
@@ -21,10 +19,24 @@ cd "d:\Automation\Framework"
 git push -u origin main
 ```
 
-Sign in when prompted (browser or Personal Access Token as password).
+- If Git asks to sign in, use your GitHub account in the browser, or a [Personal Access Token](https://github.com/settings/tokens) (classic, `repo` scope) as the password.
 
-## Step 3 — Check CI
+**Optional (GitHub CLI):** After `gh auth login`, you can create and push in one step:
 
-Open **Actions** on your repo and wait for **Maven CI** to turn green.
+```powershell
+gh repo create selenium-saucedemo-framework --public --source=. --remote=origin --push
+```
 
-Repository URL: https://github.com/Mata244/selenium-saucedemo-framework
+## Step 3 — Confirm CI
+
+1. Open https://github.com/Mata244/selenium-saucedemo-framework/actions
+2. Wait for **Maven CI** to finish with a green checkmark
+
+## One-time Git identity (recommended)
+
+```powershell
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+```
+
+Use the same email as your GitHub account.

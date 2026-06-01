@@ -107,22 +107,11 @@ Override at runtime with system properties: `-Dheadless=true`, `-Dbrowser=firefo
 
 Test users are in [`src/test/resources/testdata/users.properties`](src/test/resources/testdata/users.properties).
 
-## Publish to GitHub
+## Repository
 
-1. Create a new public repository (e.g. `selenium-saucedemo-framework`).
-2. Replace `Mata244` in the README badge URL with your GitHub username.
-3. From this folder:
+**https://github.com/Mata244/selenium-saucedemo-framework**
 
-```bash
-git init
-git add .
-git commit -m "Initial commit: Selenium SauceDemo automation framework"
-git branch -M main
-git remote add origin https://github.com/Mata244/selenium-saucedemo-framework.git
-git push -u origin main
-```
-
-4. Confirm the **Actions** tab shows a green build.
+If you are setting up locally for the first time, see [GITHUB_PUBLISH.md](GITHUB_PUBLISH.md).
 
 ## Roadmap
 
